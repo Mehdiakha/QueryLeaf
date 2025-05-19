@@ -1,53 +1,327 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QueryLeaf</title>
     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
     <style>
+      :root {
+        --primary-color: #4f75ff;
+        --primary-hover: #3a5edc;
+        --bot-bg: #e3e3e3;
+        --user-bg: #4f75ff;
+        --user-color: #fff;
+        --bot-color: #333;
+      }
+
       body {
         font-family: sans-serif;
         padding: 2em;
-        max-width: 600px;
+        max-width: 640px;
         margin: auto;
+        background: #f0f2f5;
       }
+
+      h1 {
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      h2 {
+        margin-top: 2em;
+        font-size: 1.2rem;
+      }
+
       input,
       button {
         margin: 0.5em 0;
         padding: 0.5em;
-        width: 100%;
+        font-size: 1em;
+        border-radius: 8px;
+        border: 1px solid #ccc;
       }
+
+      input[type="file"],
+      input[type="text"],
+      button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
       .chat-box {
         margin-top: 2em;
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 1em;
+        max-height: 400px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+
+      .message {
+        padding: 0.7em 1em;
+        border-radius: 20px;
+        max-width: 80%;
+        white-space: pre-wrap;
+        line-height: 1.4;
+        font-size: 1em;
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      .user-msg {
+        background-color: var(--user-bg);
+        color: var(--user-color);
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+
+      .bot-msg {
+        background-color: var(--bot-bg);
+        color: var(--bot-color);
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      form {
+        margin-top: 1em;
+        display: flex;
+        gap: 0.5em;
+        flex-wrap: wrap;
+      }
+
+      form input[type="text"] {
+        flex-grow: 1;
+        border-radius: 20px;
+        padding-left: 1em;
+      }
+
+      form button {
+        width: 100px;
+        border-radius: 20px;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+      }
+
+      form button:hover {
+        background-color: var(--primary-hover);
+      }
+
+      /* Typing animation */
+      .typing {
+        font-style: italic;
+        color: #666;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background: #666;
+        border-radius: 50%;
+        animation: blink 1.4s infinite both;
+      }
+
+      .dot:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes blink {
+        0%,
+        80%,
+        100% {
+          opacity: 0.3;
+        }
+        40% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>📘 QueryLeaf</h1>
+    <main>
+      <h1>📘 QueryLeaf</h1>
 
-    <h2>Upload a PDF</h2>
-    <form
-      hx-post="/upload/"
-      hx-target="#upload-response"
-      enctype="multipart/form-data"
-    >
-      <input type="file" name="file" accept="application/pdf" required />
-      <button type="submit">Upload</button>
-    </form>
-    <div id="upload-response"></div>
+      <section>
+        <h2>Upload a PDF</h2>
+        <form
+          hx-post="/upload/"
+          hx-target="#upload-response"
+          enctype="multipart/form-data"
+        >
+          <input type="file" name="file" accept="application/pdf" required />
+          <button type="submit">Upload</button>
+        </form>
+        <div id="upload-response" aria-live="polite"></div>
+      </section>
 
-    <div class="chat-box">
-      <h2>Ask a Question</h2>
-      <form hx-post="/ask/" hx-target="#chat-response">
+      <section
+        class="chat-box"
+        id="chat-box"
+        aria-label="Chat History"
+      ></section>
+
+      <form id="chat-form" aria-label="Ask a question">
         <input
           type="text"
+          id="question"
           name="question"
           placeholder="Ask something about the book..."
+          autocomplete="off"
           required
         />
         <button type="submit">Ask</button>
+        <button
+          type="button"
+          id="clear-btn"
+          style="
+            width: 100px;
+            border-radius: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+          "
+        >
+          Clear Chat
+        </button>
       </form>
-      <div id="chat-response"></div>
-    </div>
+    </main>
+
+    <script>
+      const chatBox = document.getElementById("chat-box");
+      const chatForm = document.getElementById("chat-form");
+      const questionInput = document.getElementById("question");
+
+      let chatHistory = JSON.parse(
+        sessionStorage.getItem("chatHistory") || "[]"
+      );
+      renderChat();
+
+      chatForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const question = questionInput.value.trim();
+        if (!question) return;
+
+        addMessage("user", question);
+        questionInput.value = "";
+        scrollToBottom();
+
+        const typingElem = createTypingIndicator();
+        chatBox.appendChild(typingElem);
+        scrollToBottom();
+
+        try {
+          const formData = new FormData();
+          formData.append("question", question);
+
+          const response = await fetch("/ask/", {
+            method: "POST",
+            body: formData,
+          });
+
+          const answer = await response.text();
+          typingElem.remove();
+          addMessage("bot", answer);
+        } catch (error) {
+          typingElem.remove();
+          addMessage(
+            "bot",
+            "❌ Sorry, something went wrong. Please try again."
+          );
+        } finally {
+          scrollToBottom();
+        }
+      });
+
+      function addMessage(sender, text) {
+        chatHistory.push({ sender, text });
+        sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+        renderChat();
+      }
+
+      function renderChat() {
+        chatBox.innerHTML = "";
+        chatHistory.forEach(({ sender, text }) => {
+          const msgElem = document.createElement("div");
+          msgElem.classList.add(
+            "message",
+            sender === "user" ? "user-msg" : "bot-msg"
+          );
+          msgElem.textContent = text;
+          chatBox.appendChild(msgElem);
+        });
+      }
+
+      function createTypingIndicator() {
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "message bot-msg typing";
+
+        for (let i = 0; i < 3; i++) {
+          const dot = document.createElement("span");
+          dot.className = "dot";
+          typingDiv.appendChild(dot);
+        }
+
+        return typingDiv;
+      }
+
+      function scrollToBottom() {
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+      let currentSessionId = null; // Make sure you store session_id here after first question
+
+      document
+        .getElementById("clear-btn")
+        .addEventListener("click", async () => {
+          if (!currentSessionId) {
+            alert("No active session to clear.");
+            return;
+          }
+          const response = await fetch("/clear/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ session_id: currentSessionId }),
+          });
+          if (response.ok) {
+            // Clear local conversation UI & session id
+            currentSessionId = null;
+            // Clear your conversation display area — example:
+            document.getElementById("conversation").innerHTML = "";
+            alert("Conversation cleared! Start a new one.");
+          } else {
+            alert("Failed to clear conversation.");
+          }
+        });
+    </script>
   </body>
 </html>
