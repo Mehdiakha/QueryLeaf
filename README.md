@@ -6,6 +6,4 @@ QueryLeaf is a minimalist yet powerful digital reading companion that transforms
 
 - [@MehdiAkha](https://www.github.com/MehdiAkha)
 
-![Logo]()
-
-## Tech Stack
+![Logo]("assets/images/logo.png")
