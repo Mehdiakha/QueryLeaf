@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>QueryLeaf</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2em;
+        max-width: 600px;
+        margin: auto;
+      }
+      input,
+      button {
+        margin: 0.5em 0;
+        padding: 0.5em;
+        width: 100%;
+      }
+      .chat-box {
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📘 QueryLeaf</h1>
+
+    <h2>Upload a PDF</h2>
+    <form
+      hx-post="/upload/"
+      hx-target="#upload-response"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" accept="application/pdf" required />
+      <button type="submit">Upload</button>
+    </form>
+    <div id="upload-response"></div>
+
+    <div class="chat-box">
+      <h2>Ask a Question</h2>
+      <form hx-post="/ask/" hx-target="#chat-response">
+        <input
+          type="text"
+          name="question"
+          placeholder="Ask something about the book..."
+          required
+        />
+        <button type="submit">Ask</button>
+      </form>
+      <div id="chat-response"></div>
+    </div>
+  </body>
+</html>
