@@ -1,0 +1,9 @@
+[project]
+name = "queryleaf"
+version = "0.1.0"
+description = "Book Companion System"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.12",
+]
