@@ -2,7 +2,8 @@
 
 # QueryLeaf
 
-QueryLeaf is a minimalist yet powerful digital reading companion that transforms how you interact with your books. Using Retrieval-Augmented Generation (RAG) technology, QueryLeaf creates an intelligent assistant that knows and understands every book you upload.
+QueryLeaf is a sleek, intelligent reading companion that transforms the way you interact with books. Powered by Retrieval-Augmented Generation (RAG), it creates a smart assistant that deeply understands your uploads—so you can ask questions and explore ideas instantly.
+Supports a wide range of formats including PDF, EPUB, and Kindle.
 
 ## Authors
 
