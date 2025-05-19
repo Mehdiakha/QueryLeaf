@@ -1,4 +1,4 @@
-![Logo]("assets/images/logo.png")
+![Logo](assets/images/logo.png)
 
 # QueryLeaf
 
