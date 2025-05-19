@@ -5,6 +5,8 @@ description = "Book Companion System"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "ebooklib>=0.19",
     "faiss-cpu>=1.11.0",
     "fastapi>=0.115.12",
     "jinja2>=3.1.6",
@@ -12,6 +14,8 @@ dependencies = [
     "langchain-community>=0.3.24",
     "langchain-openai>=0.3.17",
     "llama-index>=0.12.36",
+    "mobi>=0.3.3",
+    "mobi-python>=0.0.1",
     "pymupdf>=1.25.5",
     "python-dotenv>=1.1.0",
     "python-multipart>=0.0.20",

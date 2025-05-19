@@ -169,13 +169,18 @@
       <h1>📘 QueryLeaf</h1>
 
       <section>
-        <h2>Upload a PDF</h2>
+        <h2>Upload a Document (PDF, EPUB, MOBI)</h2>
         <form
           hx-post="/upload/"
           hx-target="#upload-response"
           enctype="multipart/form-data"
         >
-          <input type="file" name="file" accept="application/pdf" required />
+          <input
+            type="file"
+            name="file"
+            accept=".pdf, .epub, .mobi, .azw, .azw3, application/pdf, application/epub+zip, application/x-mobipocket-ebook"
+            required
+          />
           <button type="submit">Upload</button>
         </form>
         <div id="upload-response" aria-live="polite"></div>
@@ -192,7 +197,7 @@
           type="text"
           id="question"
           name="question"
-          placeholder="Ask something about the book..."
+          placeholder="Ask something about the uploaded document..."
           autocomplete="off"
           required
         />
@@ -219,6 +224,7 @@
       const chatBox = document.getElementById("chat-box");
       const chatForm = document.getElementById("chat-form");
       const questionInput = document.getElementById("question");
+      const clearBtn = document.getElementById("clear-btn");
 
       let chatHistory = JSON.parse(
         sessionStorage.getItem("chatHistory") || "[]"
@@ -296,32 +302,37 @@
       function scrollToBottom() {
         chatBox.scrollTop = chatBox.scrollHeight;
       }
-      let currentSessionId = null; // Make sure you store session_id here after first question
 
-      document
-        .getElementById("clear-btn")
-        .addEventListener("click", async () => {
-          if (!currentSessionId) {
-            alert("No active session to clear.");
-            return;
-          }
+      // Clear chat handler
+      clearBtn.addEventListener("click", async () => {
+        try {
           const response = await fetch("/clear/", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ session_id: currentSessionId }),
           });
+
           if (response.ok) {
-            // Clear local conversation UI & session id
-            currentSessionId = null;
-            // Clear your conversation display area — example:
-            document.getElementById("conversation").innerHTML = "";
-            alert("Conversation cleared! Start a new one.");
+            // Clear chat history
+            chatHistory = [];
+            sessionStorage.removeItem("chatHistory");
+            renderChat();
+            // Add system message
+            addMessage(
+              "bot",
+              "Conversation cleared. You can upload a new document or ask questions about the current one."
+            );
           } else {
-            alert("Failed to clear conversation.");
+            addMessage(
+              "bot",
+              "❌ Failed to clear conversation. Please try again."
+            );
           }
-        });
+        } catch (error) {
+          addMessage(
+            "bot",
+            "❌ Error clearing conversation. Please try again."
+          );
+        }
+      });
     </script>
   </body>
 </html>
