@@ -22,7 +22,9 @@ attrs==25.3.0
 banks==2.1.2
     # via llama-index-core
 beautifulsoup4==4.13.4
-    # via llama-index-readers-file
+    # via
+    #   queryleaf (pyproject.toml)
+    #   llama-index-readers-file
 certifi==2025.4.26
     # via
     #   httpcore
@@ -40,6 +42,7 @@ colorama==0.4.6
     # via
     #   click
     #   griffe
+    #   loguru
     #   tqdm
 dataclasses-json==0.6.7
     # via
@@ -53,6 +56,8 @@ dirtyjson==1.0.8
     # via llama-index-core
 distro==1.9.0
     # via openai
+ebooklib==0.19
+    # via queryleaf (pyproject.toml)
 faiss-cpu==1.11.0
     # via queryleaf (pyproject.toml)
 fastapi==0.115.12
@@ -128,7 +133,7 @@ llama-cloud==0.1.21
     #   llama-index-indices-managed-llama-cloud
 llama-cloud-services==0.6.15
     # via llama-parse
-llama-index==0.12.36
+llama-index==0.12.37
     # via queryleaf (pyproject.toml)
 llama-index-agent-openai==0.4.7
     # via
@@ -136,7 +141,7 @@ llama-index-agent-openai==0.4.7
     #   llama-index-program-openai
 llama-index-cli==0.4.1
     # via llama-index
-llama-index-core==0.12.36
+llama-index-core==0.12.37
     # via
     #   llama-cloud-services
     #   llama-index
@@ -156,7 +161,7 @@ llama-index-embeddings-openai==0.3.1
     #   llama-index-cli
 llama-index-indices-managed-llama-cloud==0.6.11
     # via llama-index
-llama-index-llms-openai==0.3.41
+llama-index-llms-openai==0.3.42
     # via
     #   llama-index
     #   llama-index-agent-openai
@@ -178,10 +183,18 @@ llama-index-readers-llama-parse==0.4.0
     # via llama-index
 llama-parse==0.6.12
     # via llama-index-readers-llama-parse
+loguru==0.6.0
+    # via mobi
+lxml==5.4.0
+    # via ebooklib
 markupsafe==3.0.2
     # via jinja2
 marshmallow==3.26.1
     # via dataclasses-json
+mobi==0.3.3
+    # via queryleaf (pyproject.toml)
+mobi-python==0.0.1
+    # via queryleaf (pyproject.toml)
 multidict==6.4.4
     # via
     #   aiohttp
@@ -280,7 +293,9 @@ requests==2.32.3
 requests-toolbelt==1.0.0
     # via langsmith
 six==1.17.0
-    # via python-dateutil
+    # via
+    #   ebooklib
+    #   python-dateutil
 sniffio==1.3.1
     # via
     #   anyio
@@ -338,6 +353,8 @@ urllib3==2.4.0
     # via requests
 uvicorn==0.34.2
     # via queryleaf (pyproject.toml)
+win32-setctime==1.2.0
+    # via loguru
 wrapt==1.17.2
     # via
     #   deprecated
