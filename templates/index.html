@@ -9,10 +9,13 @@
       :root {
         --primary-color: #4f75ff;
         --primary-hover: #3a5edc;
-        --bot-bg: #e3e3e3;
-        --user-bg: #4f75ff;
+        --bot-bg: rgba(227, 227, 227, 0.7);
+        --user-bg: rgba(79, 117, 255, 0.9);
         --user-color: #fff;
         --bot-color: #333;
+        --glass-bg: rgba(255, 255, 255, 0.25);
+        --glass-border: rgba(255, 255, 255, 0.18);
+        --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       }
 
       body {
@@ -20,17 +23,107 @@
         padding: 2em;
         max-width: 640px;
         margin: auto;
-        background: #f0f2f5;
+        background: linear-gradient(135deg, #e0e8ff 0%, #f0f2f5 100%);
+        background-attachment: fixed;
+        min-height: 100vh;
+        opacity: 0;
+        animation: fadeInPage 0.8s ease-out forwards;
+        zoom: 0.85;
+      }
+
+      /* Page load animation */
+      @keyframes fadeInPage {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Initial loading animation overlay */
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #e0e8ff 0%, #f0f2f5 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        transition: opacity 1s ease-out, visibility 0.5s ease-out;
+      }
+
+      .loader-logo {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite, float 3s ease-in-out infinite;
+      }
+
+      .loader-text {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-out 0.3s forwards;
+      }
+
+      .loader-bar {
+        width: 200px;
+        height: 4px;
+        background: rgba(79, 117, 255, 0.2);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .loader-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0%;
+        background: var(--primary-color);
+        animation: progress 1.2s ease-out forwards;
+      }
+
+      @keyframes progress {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
       }
 
       h1 {
         text-align: center;
         font-size: 2rem;
+        transition: transform 0.3s ease;
+      }
+
+      h1:hover {
+        transform: scale(1.05);
       }
 
       h2 {
         margin-top: 2em;
         font-size: 1.2rem;
+        transition: color 0.3s ease;
       }
 
       input,
@@ -40,6 +133,7 @@
         font-size: 1em;
         border-radius: 8px;
         border: 1px solid #ccc;
+        transition: all 0.3s ease;
       }
 
       input[type="file"],
@@ -49,17 +143,58 @@
         box-sizing: border-box;
       }
 
+      input[type="text"]:focus,
+      input[type="file"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(79, 117, 255, 0.2);
+      }
+
+      /* Enhanced input styling */
+      input[type="text"] {
+        height: 50px;
+        font-size: 1.1em;
+        padding-left: 1.2em;
+      }
+
       .chat-box {
         margin-top: 2em;
-        background: #fff;
+        background: var(--glass-bg);
         border-radius: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--glass-border);
         padding: 1em;
         max-height: 400px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
         gap: 1em;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: var(--glass-shadow);
+        transition: box-shadow 0.3s ease;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0.1);
+      }
+
+      /* Custom scrollbar styling */
+      .chat-box::-webkit-scrollbar {
+        width: 8px;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+      }
+
+      .chat-box::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .chat-box::-webkit-scrollbar-thumb:hover {
+        background-color: var(--primary-hover);
+      }
+
+      .chat-box:hover {
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.47);
       }
 
       .message {
@@ -70,6 +205,8 @@
         line-height: 1.4;
         font-size: 1em;
         animation: fadeIn 0.3s ease-in;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transform-origin: center left;
       }
 
       .user-msg {
@@ -77,6 +214,10 @@
         color: var(--user-color);
         align-self: flex-end;
         border-bottom-right-radius: 4px;
+        transform-origin: center right;
+        animation: slideInRight 0.3s ease-out;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
       }
 
       .bot-msg {
@@ -84,6 +225,9 @@
         color: var(--bot-color);
         align-self: flex-start;
         border-bottom-left-radius: 4px;
+        animation: slideInLeft 0.3s ease-out;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
       }
 
       form {
@@ -97,6 +241,9 @@
         flex-grow: 1;
         border-radius: 20px;
         padding-left: 1em;
+        background: var(--glass-bg);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
       }
 
       form button {
@@ -107,11 +254,36 @@
         font-weight: bold;
         cursor: pointer;
         border: none;
-        transition: background-color 0.3s;
+        transition: all 0.3s ease;
+        height: 50px;
       }
 
       form button:hover {
         background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      form button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      section {
+        background: var(--glass-bg);
+        padding: 1.5em;
+        border-radius: 10px;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: var(--glass-shadow);
+        margin-bottom: 1.5em;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.47);
       }
 
       /* Typing animation */
@@ -143,6 +315,77 @@
         animation-delay: 0.4s;
       }
 
+      /* File upload progress bar */
+      .upload-progress-container {
+        width: 100%;
+        height: 10px;
+        margin-top: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .upload-progress-bar {
+        height: 100%;
+        width: 0%;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+        border-radius: 5px;
+        background-image: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.2) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.2) 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 30px 30px;
+        animation: progressStripes 1s linear infinite;
+      }
+
+      @keyframes progressStripes {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 30px 0;
+        }
+      }
+
+      #upload-response {
+        transition: all 0.3s ease;
+        padding: 0.5em;
+        border-radius: 8px;
+        margin-top: 0.5em;
+      }
+
+      #upload-response.success {
+        background: rgba(39, 174, 96, 0.1);
+        color: #27ae60;
+        animation: pulse 2s infinite;
+      }
+
+      #upload-response.error {
+        background: rgba(231, 76, 60, 0.1);
+        color: #e74c3c;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(79, 117, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(79, 117, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(79, 117, 255, 0);
+        }
+      }
+
       @keyframes blink {
         0%,
         80%,
@@ -162,15 +405,95 @@
           opacity: 1;
         }
       }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Custom file input styling */
+      input[type="file"] {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: #333;
+        cursor: pointer;
+        padding: 10px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
+
+      input[type="file"]:hover {
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        body {
+          padding: 1em;
+        }
+
+        .message {
+          max-width: 90%;
+        }
+
+        input[type="text"] {
+          height: 45px;
+        }
+
+        form button {
+          height: 45px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        form {
+          flex-direction: column;
+        }
+
+        form button {
+          width: 100%;
+        }
+
+        .chat-box {
+          max-height: 350px;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- Initial loading animation -->
+    <div class="initial-loader" id="initialLoader">
+      <div class="loader-logo">📘</div>
+      <div class="loader-text">QueryLeaf</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+
     <main>
       <h1>📘 QueryLeaf</h1>
 
       <section>
         <h2>Upload a Document (PDF, EPUB, MOBI)</h2>
         <form
+          id="upload-form"
           hx-post="/upload/"
           hx-target="#upload-response"
           enctype="multipart/form-data"
@@ -178,10 +501,15 @@
           <input
             type="file"
             name="file"
+            id="file-input"
             accept=".pdf, .epub, .mobi, .azw, .azw3, application/pdf, application/epub+zip, application/x-mobipocket-ebook"
             required
           />
           <button type="submit">Upload</button>
+
+          <div class="upload-progress-container" id="uploadProgressContainer">
+            <div class="upload-progress-bar" id="uploadProgressBar"></div>
+          </div>
         </form>
         <div id="upload-response" aria-live="polite"></div>
       </section>
@@ -202,29 +530,33 @@
           required
         />
         <button type="submit">Ask</button>
-        <button
-          type="button"
-          id="clear-btn"
-          style="
-            width: 100px;
-            border-radius: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-          "
-        >
-          Clear Chat
-        </button>
+        <button type="button" id="clear-btn">Clear Chat</button>
       </form>
     </main>
 
     <script>
+      // Initial loading animation
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+          const loader = document.getElementById("initialLoader");
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.style.visibility = "hidden";
+          }, 500);
+        }, 1500);
+      });
+
       const chatBox = document.getElementById("chat-box");
       const chatForm = document.getElementById("chat-form");
       const questionInput = document.getElementById("question");
       const clearBtn = document.getElementById("clear-btn");
+      const uploadForm = document.getElementById("upload-form");
+      const fileInput = document.getElementById("file-input");
+      const uploadProgressContainer = document.getElementById(
+        "uploadProgressContainer"
+      );
+      const uploadProgressBar = document.getElementById("uploadProgressBar");
+      const uploadResponse = document.getElementById("upload-response");
 
       let chatHistory = JSON.parse(
         sessionStorage.getItem("chatHistory") || "[]"
@@ -236,7 +568,11 @@
         const question = questionInput.value.trim();
         if (!question) return;
 
-        addMessage("user", question);
+        // Directly add user message to chat history
+        chatHistory.push({ sender: "user", text: question });
+        sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+        renderChat();
+
         questionInput.value = "";
         scrollToBottom();
 
@@ -255,34 +591,87 @@
 
           const answer = await response.text();
           typingElem.remove();
-          addMessage("bot", answer);
+
+          // Directly add bot response to chat history
+          chatHistory.push({ sender: "bot", text: answer });
+          sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+          renderChat();
         } catch (error) {
           typingElem.remove();
-          addMessage(
-            "bot",
-            "❌ Sorry, something went wrong. Please try again."
-          );
+
+          // Directly add error message to chat history
+          chatHistory.push({
+            sender: "bot",
+            text: "❌ Sorry, something went wrong. Please try again.",
+          });
+          sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+          renderChat();
         } finally {
           scrollToBottom();
         }
       });
 
-      function addMessage(sender, text) {
-        chatHistory.push({ sender, text });
-        sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
-        renderChat();
-      }
+      // File upload handling with progress bar
+      uploadForm.addEventListener("submit", function (e) {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        e.preventDefault();
+
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Show progress container
+        uploadProgressContainer.style.opacity = "1";
+        uploadProgressBar.style.width = "0%";
+
+        xhr.upload.addEventListener("progress", function (e) {
+          if (e.lengthComputable) {
+            const percentComplete = (e.loaded / e.total) * 100;
+            uploadProgressBar.style.width = percentComplete + "%";
+          }
+        });
+
+        xhr.addEventListener("load", function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            uploadResponse.textContent = "✅ File uploaded successfully!";
+            uploadResponse.className = "success";
+          } else {
+            uploadResponse.textContent = "❌ Upload failed. Please try again.";
+            uploadResponse.className = "error";
+          }
+
+          // Hide progress after completion
+          setTimeout(() => {
+            uploadProgressContainer.style.opacity = "0";
+          }, 1000);
+        });
+
+        xhr.addEventListener("error", function () {
+          uploadResponse.textContent = "❌ Upload failed. Please try again.";
+          uploadResponse.className = "error";
+          uploadProgressContainer.style.opacity = "0";
+        });
+
+        xhr.open("POST", "/upload/", true);
+        xhr.send(formData);
+      });
 
       function renderChat() {
         chatBox.innerHTML = "";
-        chatHistory.forEach(({ sender, text }) => {
+        chatHistory.forEach(({ sender, text }, index) => {
           const msgElem = document.createElement("div");
           msgElem.classList.add(
             "message",
             sender === "user" ? "user-msg" : "bot-msg"
           );
           msgElem.textContent = text;
-          chatBox.appendChild(msgElem);
+
+          // Add slight delay for staggered animation effect
+          setTimeout(() => {
+            chatBox.appendChild(msgElem);
+          }, index * 50);
         });
       }
 
@@ -303,6 +692,16 @@
         chatBox.scrollTop = chatBox.scrollHeight;
       }
 
+      // Add focus animation to input
+      questionInput.addEventListener("focus", () => {
+        questionInput.style.transition = "transform 0.3s ease";
+        questionInput.style.transform = "scale(1.01)";
+      });
+
+      questionInput.addEventListener("blur", () => {
+        questionInput.style.transform = "scale(1)";
+      });
+
       // Clear chat handler
       clearBtn.addEventListener("click", async () => {
         try {
@@ -311,28 +710,69 @@
           });
 
           if (response.ok) {
-            // Clear chat history
-            chatHistory = [];
-            sessionStorage.removeItem("chatHistory");
-            renderChat();
-            // Add system message
-            addMessage(
-              "bot",
-              "Conversation cleared. You can upload a new document or ask questions about the current one."
-            );
+            // Clear chat history with fade effect
+            chatBox.style.opacity = "0";
+
+            setTimeout(() => {
+              // Clear chat history completely
+              chatHistory = [];
+              sessionStorage.removeItem("chatHistory");
+
+              // Add system message directly to chatHistory
+              chatHistory.push({
+                sender: "bot",
+                text: "Conversation cleared. You can upload a new document or ask questions about the current one.",
+              });
+
+              // Save and render
+              sessionStorage.setItem(
+                "chatHistory",
+                JSON.stringify(chatHistory)
+              );
+              renderChat();
+
+              // Fade back in
+              chatBox.style.transition = "opacity 0.5s ease";
+              chatBox.style.opacity = "1";
+            }, 300);
           } else {
-            addMessage(
-              "bot",
-              "❌ Failed to clear conversation. Please try again."
-            );
+            // Add error message directly to chatHistory
+            chatHistory.push({
+              sender: "bot",
+              text: "❌ Failed to clear conversation. Please try again.",
+            });
+            sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+            renderChat();
           }
         } catch (error) {
-          addMessage(
-            "bot",
-            "❌ Error clearing conversation. Please try again."
-          );
+          // Add error message directly to chatHistory
+          chatHistory.push({
+            sender: "bot",
+            text: "❌ Error clearing conversation. Please try again.",
+          });
+          sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+          renderChat();
         }
       });
+
+      // Add subtle hover effects to buttons
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach((button) => {
+        button.addEventListener("mouseenter", () => {
+          button.style.transform = "translateY(-2px)";
+          button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.15)";
+        });
+
+        button.addEventListener("mouseleave", () => {
+          button.style.transform = "";
+          button.style.boxShadow = "";
+        });
+      });
+
+      // Check if we need to scroll on page load
+      if (chatHistory.length > 0) {
+        setTimeout(scrollToBottom, 100);
+      }
     </script>
   </body>
 </html>
