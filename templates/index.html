@@ -7,7 +7,7 @@
   <title>QueryLeaf — Read deeper.</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist+Pixel&family=Instrument+Serif:ital@0;1&family=Poppins:wght@400;500;600;700&display=swap');
 
     :root {
       --paper: #ffffff;
@@ -16,12 +16,13 @@
       --muted: #68675f;
       --line: #11110f;
 
-      /* The one loud QueryLeaf color */
       --acid: #968ad5;
       --acid-light: #ece9fb;
 
+      /* Typography */
+      --sans: "Poppins", sans-serif;
+      --pixel: "Geist Pixel", sans-serif;
       --serif: "Instrument Serif", Georgia, serif;
-      --sans: "DM Sans", sans-serif;
       --mono: "DM Mono", monospace;
     }
 
@@ -64,7 +65,7 @@
     }
 
     /* ==================================================
-       LEFT COLUMN (LIBRARY)
+       LEFT COLUMN
     ================================================== */
 
     .library {
@@ -90,9 +91,10 @@
     }
 
     .brand-name {
+      font-family: var(--pixel);
       font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -1.8px;
+      font-weight: 400;
+      letter-spacing: -1px;
       line-height: .9;
     }
 
@@ -125,15 +127,18 @@
       margin-bottom: 12px;
     }
 
-    /* FLASHCARD SIDEBAR TRIGGER */
+    /* ==================================================
+       FLASHCARD SIDEBAR TRIGGER
+    ================================================== */
+
     .flashcard-trigger-btn {
       width: 100%;
       border: 3px solid var(--line);
       background: var(--paper);
       padding: 10px;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 700;
+      font-family: var(--pixel);
+      font-size: 11px;
+      font-weight: 400;
       text-transform: uppercase;
       margin-bottom: 16px;
       text-align: left;
@@ -275,6 +280,7 @@
       background: var(--acid);
       padding: 14px;
       position: relative;
+      transition: all .15s ease;
     }
 
     .upload:hover {
@@ -407,7 +413,7 @@
     }
 
     /* ==================================================
-       MAIN CONTENT / TABS
+       MAIN
     ================================================== */
 
     .main {
@@ -437,10 +443,10 @@
       border: 2px solid var(--line);
       background: transparent;
       padding: 7px 12px;
-      font-family: var(--mono);
-      font-size: 9px;
+      font-family: var(--pixel);
+      font-size: 10px;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 400;
     }
 
     .mode-tab.active {
@@ -474,7 +480,7 @@
     }
 
     /* ==================================================
-       VIEW 1: READING ROOM
+       READING ROOM
     ================================================== */
 
     .reading-area {
@@ -522,8 +528,8 @@
     }
 
     .starter-label {
-      font-family: var(--mono);
-      font-size: 8px;
+      font-family: var(--pixel);
+      font-size: 10px;
       text-transform: uppercase;
       padding-top: 10px;
     }
@@ -567,8 +573,15 @@
     }
 
     @keyframes appear {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .message-label {
@@ -600,7 +613,10 @@
       line-height: 1.35;
     }
 
-    /* IN-CHAT FLASHCARD WIDGET */
+    /* ==================================================
+       FLASHCARD CTA
+    ================================================== */
+
     .flashcard-cta-card {
       margin-top: 18px;
       border: 3px solid var(--line);
@@ -611,8 +627,9 @@
     }
 
     .flashcard-cta-title {
-      font-weight: 700;
-      font-size: 14px;
+      font-family: var(--pixel);
+      font-weight: 400;
+      font-size: 15px;
       text-transform: uppercase;
     }
 
@@ -640,7 +657,7 @@
     }
 
     /* ==================================================
-       VIEW 2: FLASHCARD WORKSPACE
+       FLASHCARD WORKSPACE
     ================================================== */
 
     .flashcard-workspace {
@@ -694,7 +711,10 @@
       box-shadow: 3px 3px 0 var(--ink);
     }
 
-    /* 3D FLASHCARD */
+    /* ==================================================
+       3D FLASHCARD
+    ================================================== */
+
     .card-stage {
       width: 100%;
       height: 340px;
@@ -849,12 +869,23 @@
       animation: blink 1s infinite;
     }
 
-    .typing span:nth-child(2) { animation-delay: .15s; }
-    .typing span:nth-child(3) { animation-delay: .3s; }
+    .typing span:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: .3s;
+    }
 
     @keyframes blink {
-      0%, 100% { opacity: .2; }
-      50% { opacity: 1; }
+      0%,
+      100% {
+        opacity: .2;
+      }
+
+      50% {
+        opacity: 1;
+      }
     }
 
     /* ==================================================
@@ -889,6 +920,7 @@
       outline: 0;
       padding: 14px;
       background: white;
+      font-family: var(--sans);
       font-size: 14px;
     }
 
@@ -922,23 +954,80 @@
     ================================================== */
 
     @media (max-width: 800px) {
-      body { overflow: auto; }
-      .app { display: block; height: auto; }
-      .library { border-right: 0; border-bottom: 3px solid var(--line); }
-      .library-body { padding: 14px; }
-      .book-stage { min-height: 260px; }
-      .document, .library-footer { display: none; }
-      .main { height: calc(100vh - 430px); min-height: 650px; }
-      .topbar { padding: 0 14px; }
-      .reading { width: calc(100% - 28px); padding-top: 40px; }
-      .hero h1 { font-size: 72px; letter-spacing: -3px; }
-      .question-starters { grid-template-columns: 1fr; gap: 10px; }
-      .message { grid-template-columns: 70px 1fr; }
-      .message.assistant .message-content { font-size: 19px; }
-      .composer-area { padding: 10px 14px 13px; }
-      .composer-box { box-shadow: 4px 4px 0 var(--ink); }
-      .card-stage { height: 280px; }
-      .card-pane-text { font-size: 24px; }
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        display: block;
+        height: auto;
+      }
+
+      .library {
+        border-right: 0;
+        border-bottom: 3px solid var(--line);
+      }
+
+      .library-body {
+        padding: 14px;
+      }
+
+      .book-stage {
+        min-height: 260px;
+      }
+
+      .document,
+      .library-footer {
+        display: none;
+      }
+
+      .main {
+        height: calc(100vh - 430px);
+        min-height: 650px;
+      }
+
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .reading {
+        width: calc(100% - 28px);
+        padding-top: 40px;
+      }
+
+      .hero h1 {
+        font-size: 72px;
+        letter-spacing: -3px;
+      }
+
+      .question-starters {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .message {
+        grid-template-columns: 70px 1fr;
+      }
+
+      .message.assistant .message-content {
+        font-size: 19px;
+      }
+
+      .composer-area {
+        padding: 10px 14px 13px;
+      }
+
+      .composer-box {
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .card-stage {
+        height: 280px;
+      }
+
+      .card-pane-text {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -948,8 +1037,9 @@
 <div class="app">
 
   <!-- ==================================================
-       LIBRARY (LEFT SIDEBAR)
+       LIBRARY
   ================================================== -->
+
   <aside class="library">
 
     <div class="brand">
@@ -959,49 +1049,75 @@
         </div>
       </div>
 
-      <div class="brand-description">
-        A reading instrument<br>
-        for difficult books.
-      </div>
     </div>
 
     <div class="library-body">
 
-      <!-- QUICK DECK GENERATOR -->
-      <button class="flashcard-trigger-btn" id="sidebar-gen-cards-btn" type="button">
+      <button
+        class="flashcard-trigger-btn"
+        id="sidebar-gen-cards-btn"
+        type="button"
+      >
         <span>Generate Deck</span>
         <span>→</span>
       </button>
 
       <!-- BOOK -->
+
       <div class="book-stage">
+
         <div class="book-empty" id="book-empty">
           NO BOOK<br><br>
           Upload something worth thinking about.
         </div>
 
         <div class="book hidden" id="book">
+
           <div class="book-spine"></div>
-          <img id="book-cover" class="book-cover-image" alt="" />
+
+          <img
+            id="book-cover"
+            class="book-cover-image"
+            alt=""
+          />
 
           <div class="book-fallback">
-            <div class="book-kicker">QueryLeaf / 001</div>
-            <div class="book-title" id="book-title">YOUR<br>BOOK</div>
-            <div class="book-bottom">A document<br>under examination.</div>
+
+            <div class="book-kicker">
+              QueryLeaf / 001
+            </div>
+
+            <div class="book-title" id="book-title">
+              YOUR<br>BOOK
+            </div>
+
+            <div class="book-bottom">
+              A document<br>
+              under examination.
+            </div>
+
           </div>
+
         </div>
+
       </div>
 
       <!-- UPLOAD -->
+
       <div class="upload" id="upload-area">
+
         <div class="upload-title">
           + Add a book
         </div>
+
         <div class="upload-description">
           PDF · EPUB · MOBI · AZW · AZW3
         </div>
 
-        <label class="file-label" for="file-input">
+        <label
+          class="file-label"
+          for="file-input"
+        >
           Choose file →
         </label>
 
@@ -1012,24 +1128,57 @@
           accept=".pdf,.epub,.mobi,.azw,.azw3"
         />
 
-        <div class="upload-progress" id="upload-progress">
-          <div class="upload-progress-bar" id="upload-progress-bar"></div>
+        <div
+          class="upload-progress"
+          id="upload-progress"
+        >
+          <div
+            class="upload-progress-bar"
+            id="upload-progress-bar"
+          ></div>
         </div>
 
-        <div id="upload-response" aria-live="polite"></div>
+        <div
+          id="upload-response"
+          aria-live="polite"
+        ></div>
+
       </div>
 
       <!-- DOCUMENT INFO -->
+
       <div class="document">
-        <div class="document-empty" id="document-empty"></div>
-        <div class="document-active" id="document-active">
-          <div class="document-name" id="document-name"></div>
-          <div class="document-meta" id="document-meta"></div>
+
+        <div
+          class="document-empty"
+          id="document-empty"
+        ></div>
+
+        <div
+          class="document-active"
+          id="document-active"
+        >
+
+          <div
+            class="document-name"
+            id="document-name"
+          ></div>
+
+          <div
+            class="document-meta"
+            id="document-meta"
+          ></div>
+
           <div class="status">
+
             <span class="status-mark"></span>
+
             Indexed / ready
+
           </div>
+
         </div>
+
       </div>
 
     </div>
@@ -1041,138 +1190,317 @@
 
   </aside>
 
+
   <!-- ==================================================
-       MAIN READER & FLASHCARDS
+       MAIN
   ================================================== -->
+
   <main class="main">
 
     <header class="topbar">
+
       <div class="topbar-left">
-        <button class="mode-tab active" id="tab-btn-reader" type="button">Reading Room</button>
-        <button class="mode-tab" id="tab-btn-flashcards" type="button">Flashcards (<span id="top-card-count">3</span>)</button>
+
+        <button
+          class="mode-tab active"
+          id="tab-btn-reader"
+          type="button"
+        >
+          Reading Room
+        </button>
+
+        <button
+          class="mode-tab"
+          id="tab-btn-flashcards"
+          type="button"
+        >
+          Flashcards
+          (<span id="top-card-count">3</span>)
+        </button>
+
       </div>
 
       <div class="topbar-right">
-        <button id="clear-btn" class="clear-button" type="button">
+
+        <button
+          id="clear-btn"
+          class="clear-button"
+          type="button"
+        >
           Clear session
         </button>
+
       </div>
+
     </header>
 
-    <!-- VIEW 1: READING ROOM / CHAT -->
-    <div class="reading-area" id="chat-wrapper">
+
+    <!-- ==================================================
+         READING ROOM
+    ================================================== -->
+
+    <div
+      class="reading-area"
+      id="chat-wrapper"
+    >
+
       <div class="reading">
 
-        <section class="hero" id="welcome">
-          <div>
-            <div class="hero-copy">
-              QueryLeaf reads the book <strong>with you</strong>.
-              Ask about an argument, a character, an obscure
-              paragraph, or generate spaced-repetition memory decks.
-            </div>
-          </div>
+
+
         </section>
 
+
         <!-- QUESTION STARTERS -->
+
         <section class="question-starters">
+
           <div class="starter-label">
             Start here
           </div>
 
           <div class="suggestions">
-            <button class="suggestion acid-btn" id="prompt-gen-cards" type="button">
-               Generate 5 active-recall flashcards
+
+            <button
+              class="suggestion acid-btn"
+              id="prompt-gen-cards"
+              type="button"
+            >
+              Generate 5 active-recall flashcards
             </button>
-            <button class="suggestion" data-question="What is the main argument of this book?">
+
+            <button
+              class="suggestion"
+              data-question="What is the main argument of this book?"
+            >
               What is the argument?
             </button>
-            <button class="suggestion" data-question="What are the most important ideas in this book?">
+
+            <button
+              class="suggestion"
+              data-question="What are the most important ideas in this book?"
+            >
               Find the important ideas
             </button>
-            <button class="suggestion" data-question="What should I remember from this book?">
+
+            <button
+              class="suggestion"
+              data-question="What should I remember from this book?"
+            >
               What should I remember?
             </button>
-            <button class="suggestion" data-question="Explain the most difficult concept in this book.">
+
+            <button
+              class="suggestion"
+              data-question="Explain the most difficult concept in this book."
+            >
               Explain something difficult
             </button>
+
           </div>
+
         </section>
 
+
         <!-- MESSAGES -->
-        <section class="messages" id="chat-box"></section>
+
+        <section
+          class="messages"
+          id="chat-box"
+        ></section>
 
       </div>
+
     </div>
 
-    <!-- VIEW 2: FLASHCARD WORKSPACE -->
-    <div class="flashcard-workspace" id="flashcard-workspace">
+
+    <!-- ==================================================
+         FLASHCARD WORKSPACE
+    ================================================== -->
+
+    <div
+      class="flashcard-workspace"
+      id="flashcard-workspace"
+    >
+
       <div class="deck-container">
 
         <div class="deck-top-bar">
-          <div class="deck-title">Active Recall Deck</div>
-          <div class="deck-actions-group">
-            <button class="deck-btn" id="export-tsv-btn">Export Anki/TSV</button>
-            <button class="deck-btn" id="deck-regen-btn">Regenerate</button>
+
+          <div class="deck-title">
+            Active Recall Deck
           </div>
+
+          <div class="deck-actions-group">
+
+            <button
+              class="deck-btn"
+              id="export-tsv-btn"
+            >
+              Export Anki/TSV
+            </button>
+
+            <button
+              class="deck-btn"
+              id="deck-regen-btn"
+            >
+              Regenerate
+            </button>
+
+          </div>
+
         </div>
 
-        <!-- 3D Card Stage -->
-        <div class="card-stage" id="card-stage" title="Click or press Space to flip">
-          <div class="interactive-card" id="interactive-card">
-            
-            <!-- Card Front -->
+
+        <!-- CARD -->
+
+        <div
+          class="card-stage"
+          id="card-stage"
+          title="Click or press Space to flip"
+        >
+
+          <div
+            class="interactive-card"
+            id="interactive-card"
+          >
+
+            <!-- FRONT -->
+
             <div class="card-pane front">
+
               <div class="card-pane-tag">
-                <span>Concept / Prompt</span>
-                <span>Spacebar / Click to Flip</span>
+
+                <span>
+                  Concept / Prompt
+                </span>
+
+                <span>
+                  Spacebar / Click to Flip
+                </span>
+
               </div>
-              <div class="card-pane-text" id="card-front-text">
+
+              <div
+                class="card-pane-text"
+                id="card-front-text"
+              >
                 What is the primary thesis of this book?
               </div>
-              <div class="card-pane-hint">↻ FLIP OVER</div>
+
+              <div class="card-pane-hint">
+                ↻ FLIP OVER
+              </div>
+
             </div>
 
-            <!-- Card Back -->
+
+            <!-- BACK -->
+
             <div class="card-pane back">
+
               <div class="card-pane-tag">
-                <span style="color: var(--ink); font-weight:700;">Synthesis & Takeaway</span>
-                <span>Answer</span>
+
+                <span
+                  style="color: var(--ink); font-weight:700;"
+                >
+                  Synthesis & Takeaway
+                </span>
+
+                <span>
+                  Answer
+                </span>
+
               </div>
-              <div class="card-pane-text" id="card-back-text">
-                The core argument focuses on extracting structured insights directly from retrieved passages rather than relying on ungrounded memory.
+
+              <div
+                class="card-pane-text"
+                id="card-back-text"
+              >
+                The core argument focuses on extracting
+                structured insights directly from retrieved
+                passages rather than relying on ungrounded memory.
               </div>
-              <div class="card-pane-source" id="card-source-text">
+
+              <div
+                class="card-pane-source"
+                id="card-source-text"
+              >
                 Source: Chapter 1
               </div>
+
             </div>
 
           </div>
+
         </div>
 
-        <!-- Controls & Progress -->
+
+        <!-- CONTROLS -->
+
         <div class="deck-controls">
-          <button class="deck-arrow-btn" id="card-prev-btn" title="Previous (←)">←</button>
+
+          <button
+            class="deck-arrow-btn"
+            id="card-prev-btn"
+            title="Previous (←)"
+          >
+            ←
+          </button>
 
           <div class="progress-bar-wrapper">
+
             <div class="progress-track">
-              <div class="progress-fill-bar" id="progress-fill-bar"></div>
+
+              <div
+                class="progress-fill-bar"
+                id="progress-fill-bar"
+              ></div>
+
             </div>
+
             <div class="progress-label">
-              <span>Progress</span>
-              <span id="deck-counter-text">1 / 3</span>
+
+              <span>
+                Progress
+              </span>
+
+              <span id="deck-counter-text">
+                1 / 3
+              </span>
+
             </div>
+
           </div>
 
-          <button class="deck-arrow-btn" id="card-next-btn" title="Next (→)">→</button>
+          <button
+            class="deck-arrow-btn"
+            id="card-next-btn"
+            title="Next (→)"
+          >
+            →
+          </button>
+
         </div>
 
       </div>
+
     </div>
 
-    <!-- COMPOSER -->
+
+    <!-- ==================================================
+         COMPOSER
+    ================================================== -->
+
     <div class="composer-area">
-      <form class="composer" id="chat-form">
+
+      <form
+        class="composer"
+        id="chat-form"
+      >
+
         <div class="composer-box">
+
           <textarea
             id="question"
             name="question"
@@ -1189,18 +1517,24 @@
           >
             →
           </button>
+
         </div>
+
       </form>
+
     </div>
 
   </main>
 
 </div>
 
+
 <script>
+
   /* ==================================================
      STATE
   ================================================== */
+
   let flashcards = [
     {
       q: "What is the primary argument of this text?",
@@ -1220,453 +1554,1150 @@
   ];
 
   let currentCardIndex = 0;
-  let chatHistory = JSON.parse(sessionStorage.getItem("chatHistory") || "[]");
+
+  let chatHistory =
+    JSON.parse(
+      sessionStorage.getItem("chatHistory") || "[]"
+    );
+
 
   /* ==================================================
      ELEMENT REFS
   ================================================== */
-  const tabBtnReader = document.getElementById("tab-btn-reader");
-  const tabBtnFlashcards = document.getElementById("tab-btn-flashcards");
-  const chatWrapper = document.getElementById("chat-wrapper");
-  const flashcardWorkspace = document.getElementById("flashcard-workspace");
-  const topCardCount = document.getElementById("top-card-count");
 
-  const chatBox = document.getElementById("chat-box");
-  const chatForm = document.getElementById("chat-form");
-  const questionInput = document.getElementById("question");
-  const clearBtn = document.getElementById("clear-btn");
+  const tabBtnReader =
+    document.getElementById("tab-btn-reader");
 
-  const cardStage = document.getElementById("card-stage");
-  const interactiveCard = document.getElementById("interactive-card");
-  const cardFrontText = document.getElementById("card-front-text");
-  const cardBackText = document.getElementById("card-back-text");
-  const cardSourceText = document.getElementById("card-source-text");
-  const cardPrevBtn = document.getElementById("card-prev-btn");
-  const cardNextBtn = document.getElementById("card-next-btn");
-  const deckCounterText = document.getElementById("deck-counter-text");
-  const progressFillBar = document.getElementById("progress-fill-bar");
-  const exportTsvBtn = document.getElementById("export-tsv-btn");
-  const deckRegenBtn = document.getElementById("deck-regen-btn");
+  const tabBtnFlashcards =
+    document.getElementById("tab-btn-flashcards");
 
-  const sidebarGenCardsBtn = document.getElementById("sidebar-gen-cards-btn");
-  const promptGenCards = document.getElementById("prompt-gen-cards");
+  const chatWrapper =
+    document.getElementById("chat-wrapper");
 
-  const fileInput = document.getElementById("file-input");
-  const uploadArea = document.getElementById("upload-area");
-  const uploadProgress = document.getElementById("upload-progress");
-  const uploadProgressBar = document.getElementById("upload-progress-bar");
-  const uploadResponse = document.getElementById("upload-response");
+  const flashcardWorkspace =
+    document.getElementById("flashcard-workspace");
 
-  const documentEmpty = document.getElementById("document-empty");
-  const documentActive = document.getElementById("document-active");
-  const documentName = document.getElementById("document-name");
-  const documentMeta = document.getElementById("document-meta");
+  const topCardCount =
+    document.getElementById("top-card-count");
 
-  const book = document.getElementById("book");
-  const bookEmpty = document.getElementById("book-empty");
-  const bookTitle = document.getElementById("book-title");
-  const bookCover = document.getElementById("book-cover");
+  const chatBox =
+    document.getElementById("chat-box");
+
+  const chatForm =
+    document.getElementById("chat-form");
+
+  const questionInput =
+    document.getElementById("question");
+
+  const clearBtn =
+    document.getElementById("clear-btn");
+
+  const cardStage =
+    document.getElementById("card-stage");
+
+  const interactiveCard =
+    document.getElementById("interactive-card");
+
+  const cardFrontText =
+    document.getElementById("card-front-text");
+
+  const cardBackText =
+    document.getElementById("card-back-text");
+
+  const cardSourceText =
+    document.getElementById("card-source-text");
+
+  const cardPrevBtn =
+    document.getElementById("card-prev-btn");
+
+  const cardNextBtn =
+    document.getElementById("card-next-btn");
+
+  const deckCounterText =
+    document.getElementById("deck-counter-text");
+
+  const progressFillBar =
+    document.getElementById("progress-fill-bar");
+
+  const exportTsvBtn =
+    document.getElementById("export-tsv-btn");
+
+  const deckRegenBtn =
+    document.getElementById("deck-regen-btn");
+
+  const sidebarGenCardsBtn =
+    document.getElementById("sidebar-gen-cards-btn");
+
+  const promptGenCards =
+    document.getElementById("prompt-gen-cards");
+
+  const fileInput =
+    document.getElementById("file-input");
+
+  const uploadArea =
+    document.getElementById("upload-area");
+
+  const uploadProgress =
+    document.getElementById("upload-progress");
+
+  const uploadProgressBar =
+    document.getElementById("upload-progress-bar");
+
+  const uploadResponse =
+    document.getElementById("upload-response");
+
+  const documentEmpty =
+    document.getElementById("document-empty");
+
+  const documentActive =
+    document.getElementById("document-active");
+
+  const documentName =
+    document.getElementById("document-name");
+
+  const documentMeta =
+    document.getElementById("document-meta");
+
+  const book =
+    document.getElementById("book");
+
+  const bookEmpty =
+    document.getElementById("book-empty");
+
+  const bookTitle =
+    document.getElementById("book-title");
+
+  const bookCover =
+    document.getElementById("book-cover");
+
 
   /* ==================================================
      TAB SWITCHING
   ================================================== */
+
   function switchMode(mode) {
-    if (mode === 'flashcards') {
+
+    if (mode === "flashcards") {
+
       tabBtnFlashcards.classList.add("active");
       tabBtnReader.classList.remove("active");
+
       chatWrapper.style.display = "none";
       flashcardWorkspace.style.display = "flex";
+
       renderFlashcard();
+
     } else {
+
       tabBtnReader.classList.add("active");
       tabBtnFlashcards.classList.remove("active");
+
       flashcardWorkspace.style.display = "none";
       chatWrapper.style.display = "block";
+
       scrollToBottom();
+
     }
   }
 
-  tabBtnReader.addEventListener("click", () => switchMode('reader'));
-  tabBtnFlashcards.addEventListener("click", () => switchMode('flashcards'));
+  tabBtnReader.addEventListener(
+    "click",
+    () => switchMode("reader")
+  );
+
+  tabBtnFlashcards.addEventListener(
+    "click",
+    () => switchMode("flashcards")
+  );
+
 
   /* ==================================================
-     FLASHCARD DECK CONTROLLER
+     FLASHCARD CONTROLLER
   ================================================== */
+
   function renderFlashcard() {
+
     if (!flashcards.length) return;
+
     interactiveCard.classList.remove("is-flipped");
 
-    const card = flashcards[currentCardIndex];
-    cardFrontText.textContent = card.q;
-    cardBackText.textContent = card.a;
-    cardSourceText.textContent = card.source ? `Source: ${card.source}` : "Source: Document Passage";
+    const card =
+      flashcards[currentCardIndex];
 
-    deckCounterText.textContent = `${currentCardIndex + 1} / ${flashcards.length}`;
-    topCardCount.textContent = flashcards.length;
-    progressFillBar.style.width = `${((currentCardIndex + 1) / flashcards.length) * 100}%`;
+    cardFrontText.textContent =
+      card.q;
+
+    cardBackText.textContent =
+      card.a;
+
+    cardSourceText.textContent =
+      card.source
+        ? `Source: ${card.source}`
+        : "Source: Document Passage";
+
+    deckCounterText.textContent =
+      `${currentCardIndex + 1} / ${flashcards.length}`;
+
+    topCardCount.textContent =
+      flashcards.length;
+
+    progressFillBar.style.width =
+      `${((currentCardIndex + 1) / flashcards.length) * 100}%`;
   }
 
-  cardStage.addEventListener("click", () => {
-    interactiveCard.classList.toggle("is-flipped");
-  });
 
-  cardPrevBtn.addEventListener("click", () => {
-    if (currentCardIndex > 0) {
-      currentCardIndex--;
-      renderFlashcard();
+  cardStage.addEventListener(
+    "click",
+    () => {
+      interactiveCard.classList.toggle("is-flipped");
     }
-  });
+  );
 
-  cardNextBtn.addEventListener("click", () => {
-    if (currentCardIndex < flashcards.length - 1) {
-      currentCardIndex++;
-      renderFlashcard();
-    }
-  });
 
-  document.addEventListener("keydown", (e) => {
-    if (flashcardWorkspace.style.display === "flex") {
-      if (e.code === "Space") {
-        e.preventDefault();
-        interactiveCard.classList.toggle("is-flipped");
-      } else if (e.code === "ArrowRight" && currentCardIndex < flashcards.length - 1) {
-        currentCardIndex++;
-        renderFlashcard();
-      } else if (e.code === "ArrowLeft" && currentCardIndex > 0) {
+  cardPrevBtn.addEventListener(
+    "click",
+    () => {
+
+      if (currentCardIndex > 0) {
+
         currentCardIndex--;
+
         renderFlashcard();
       }
+
     }
-  });
+  );
+
+
+  cardNextBtn.addEventListener(
+    "click",
+    () => {
+
+      if (
+        currentCardIndex <
+        flashcards.length - 1
+      ) {
+
+        currentCardIndex++;
+
+        renderFlashcard();
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        flashcardWorkspace.style.display === "flex"
+      ) {
+
+        if (event.code === "Space") {
+
+          event.preventDefault();
+
+          interactiveCard.classList.toggle(
+            "is-flipped"
+          );
+
+        }
+
+        else if (
+          event.code === "ArrowRight" &&
+          currentCardIndex <
+            flashcards.length - 1
+        ) {
+
+          currentCardIndex++;
+
+          renderFlashcard();
+
+        }
+
+        else if (
+          event.code === "ArrowLeft" &&
+          currentCardIndex > 0
+        ) {
+
+          currentCardIndex--;
+
+          renderFlashcard();
+
+        }
+
+      }
+
+    }
+  );
+
 
   /* ==================================================
-     FLASHCARD GENERATION LOGIC
+     FLASHCARD GENERATION
   ================================================== */
-  async function generateFlashcards() {
-    switchMode('reader');
-    addMessage("user", "⚡ Generate 5 key concept flashcards from this book.");
 
-    const typing = createTypingIndicator();
+  async function generateFlashcards() {
+
+    switchMode("reader");
+
+    addMessage(
+      "user",
+      "⚡ Generate 5 key concept flashcards from this book."
+    );
+
+    const typing =
+      createTypingIndicator();
+
     chatBox.appendChild(typing);
+
     scrollToBottom();
 
-    const promptText = "Generate 5 active recall flashcards from the book in valid JSON format only: [{\"q\":\"question\",\"a\":\"answer\",\"source\":\"chapter or page\"}]";
+    const promptText =
+      'Generate 5 active recall flashcards from the book in valid JSON format only: [{"q":"question","a":"answer","source":"chapter or page"}]';
 
     try {
-      const formData = new FormData();
-      formData.append("question", promptText);
 
-      const response = await fetch("/ask/", { method: "POST", body: formData });
-      let answer = "";
-      if (response.ok) {
-        answer = await response.text();
-      } else {
-        throw new Error();
-      }
+      const formData =
+        new FormData();
 
-      typing.remove();
+      formData.append(
+        "question",
+        promptText
+      );
 
-      // Extract JSON if possible
-      const jsonMatch = answer.match(/\[\s*\{.*\}\s*\]/s);
-      if (jsonMatch) {
-        try {
-          const parsed = JSON.parse(jsonMatch[0]);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            flashcards = parsed;
-            currentCardIndex = 0;
-            renderFlashcard();
+      const response =
+        await fetch(
+          "/ask/",
+          {
+            method: "POST",
+            body: formData
           }
-        } catch (err) {}
+        );
+
+      let answer = "";
+
+      if (response.ok) {
+
+        answer =
+          await response.text();
+
+      } else {
+
+        throw new Error();
+
       }
 
-      appendDeckCtaMessage(flashcards.length);
-    } catch {
       typing.remove();
-      // Graceful brutalist fallback
+
+      const jsonMatch =
+        answer.match(
+          /\[\s*\{.*\}\s*\]/s
+        );
+
+      if (jsonMatch) {
+
+        try {
+
+          const parsed =
+            JSON.parse(jsonMatch[0]);
+
+          if (
+            Array.isArray(parsed) &&
+            parsed.length > 0
+          ) {
+
+            flashcards = parsed;
+
+            currentCardIndex = 0;
+
+            renderFlashcard();
+
+          }
+
+        } catch (err) {}
+
+      }
+
+      appendDeckCtaMessage(
+        flashcards.length
+      );
+
+    }
+
+    catch {
+
+      typing.remove();
+
       flashcards = [
-        { q: "What is the central conflict of the text?", a: "The dialectic between inherited dogma and empirical observation.", source: "Passage 1" },
-        { q: "What crucial deduction is made in Chapter 2?", a: "That structured constraints lead to greater synthesis.", source: "Passage 14" },
-        { q: "What is the author's final prescription?", a: "To continually test assumptions against primary source material.", source: "Conclusion" }
+
+        {
+          q: "What is the central conflict of the text?",
+          a: "The dialectic between inherited dogma and empirical observation.",
+          source: "Passage 1"
+        },
+
+        {
+          q: "What crucial deduction is made in Chapter 2?",
+          a: "That structured constraints lead to greater synthesis.",
+          source: "Passage 14"
+        },
+
+        {
+          q: "What is the author's final prescription?",
+          a: "To continually test assumptions against primary source material.",
+          source: "Conclusion"
+        }
+
       ];
+
       currentCardIndex = 0;
+
       renderFlashcard();
-      appendDeckCtaMessage(flashcards.length);
+
+      appendDeckCtaMessage(
+        flashcards.length
+      );
+
     }
   }
 
+
   function appendDeckCtaMessage(count) {
-    const element = document.createElement("article");
-    element.className = "message assistant";
 
-    const label = document.createElement("div");
-    label.className = "message-label";
-    label.innerHTML = `QueryLeaf <span class="message-number">${String(chatHistory.length + 1).padStart(2, "0")}</span>`;
+    const element =
+      document.createElement("article");
 
-    const content = document.createElement("div");
-    content.className = "message-content";
+    element.className =
+      "message assistant";
+
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "message-label";
+
+    label.innerHTML =
+      `QueryLeaf <span class="message-number">${String(
+        chatHistory.length + 1
+      ).padStart(2, "0")}</span>`;
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
     content.innerHTML = `
-      <div>I have extracted <strong>${count} active-recall cards</strong> from the document passages.</div>
+      <div>
+        I have extracted
+        <strong>${count} active-recall cards</strong>
+        from the document passages.
+      </div>
+
       <div class="flashcard-cta-card">
-        <div class="flashcard-cta-title">🎴 Flashcard Deck Ready</div>
-        <div class="flashcard-cta-sub">Review answers, test memory retention, or export to Anki.</div>
-        <button class="flashcard-launch-btn" type="button" onclick="switchMode('flashcards')">Open Deck View →</button>
+
+        <div class="flashcard-cta-title">
+          🎴 Flashcard Deck Ready
+        </div>
+
+        <div class="flashcard-cta-sub">
+          Review answers, test memory retention,
+          or export to Anki.
+        </div>
+
+        <button
+          class="flashcard-launch-btn"
+          type="button"
+          onclick="switchMode('flashcards')"
+        >
+          Open Deck View →
+        </button>
+
       </div>
     `;
 
     element.appendChild(label);
+
     element.appendChild(content);
+
     chatBox.appendChild(element);
+
     scrollToBottom();
   }
 
-  sidebarGenCardsBtn.addEventListener("click", generateFlashcards);
-  promptGenCards.addEventListener("click", generateFlashcards);
-  deckRegenBtn.addEventListener("click", generateFlashcards);
 
-  /* EXPORT TSV / ANKI */
-  exportTsvBtn.addEventListener("click", () => {
-    let tsv = "Question\tAnswer\tSource\n";
-    flashcards.forEach(c => {
-      tsv += `"${c.q.replace(/"/g, '""')}"\t"${c.a.replace(/"/g, '""')}"\t"${(c.source || '').replace(/"/g, '""')}"\n`;
-    });
-    const link = document.createElement("a");
-    link.href = "data:text/tab-separated-values;charset=utf-8," + encodeURIComponent(tsv);
-    link.download = "queryleaf-flashcards.tsv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
+  sidebarGenCardsBtn.addEventListener(
+    "click",
+    generateFlashcards
+  );
+
+  promptGenCards.addEventListener(
+    "click",
+    generateFlashcards
+  );
+
+  deckRegenBtn.addEventListener(
+    "click",
+    generateFlashcards
+  );
+
 
   /* ==================================================
-     CHAT SYSTEM
+     EXPORT TSV / ANKI
   ================================================== */
+
+  exportTsvBtn.addEventListener(
+    "click",
+    () => {
+
+      let tsv =
+        "Question\tAnswer\tSource\n";
+
+      flashcards.forEach(c => {
+
+        tsv +=
+          `"${c.q.replace(/"/g, '""')}"\t` +
+          `"${c.a.replace(/"/g, '""')}"\t` +
+          `"${(c.source || '').replace(/"/g, '""')}"\n`;
+
+      });
+
+      const link =
+        document.createElement("a");
+
+      link.href =
+        "data:text/tab-separated-values;charset=utf-8," +
+        encodeURIComponent(tsv);
+
+      link.download =
+        "queryleaf-flashcards.tsv";
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+
+    }
+  );
+
+
+  /* ==================================================
+     CHAT
+  ================================================== */
+
   function renderChat() {
+
     chatBox.innerHTML = "";
 
-    chatHistory.forEach((message, index) => {
-      const element = document.createElement("article");
-      element.className = "message " + (message.sender === "user" ? "user" : "assistant");
+    chatHistory.forEach(
+      (message, index) => {
 
-      const label = document.createElement("div");
-      label.className = "message-label";
-      label.innerHTML = `
-        ${message.sender === "user" ? "Question" : "QueryLeaf"}
-        <span class="message-number">${String(index + 1).padStart(2, "0")}</span>
-      `;
+        const element =
+          document.createElement("article");
 
-      const content = document.createElement("div");
-      content.className = "message-content";
-      content.textContent = message.text;
+        element.className =
+          "message " +
+          (
+            message.sender === "user"
+              ? "user"
+              : "assistant"
+          );
 
-      element.appendChild(label);
-      element.appendChild(content);
-      chatBox.appendChild(element);
-    });
+        const label =
+          document.createElement("div");
+
+        label.className =
+          "message-label";
+
+        label.innerHTML = `
+          ${
+            message.sender === "user"
+              ? "Question"
+              : "QueryLeaf"
+          }
+
+          <span class="message-number">
+            ${String(index + 1).padStart(2, "0")}
+          </span>
+        `;
+
+        const content =
+          document.createElement("div");
+
+        content.className =
+          "message-content";
+
+        content.textContent =
+          message.text;
+
+        element.appendChild(label);
+
+        element.appendChild(content);
+
+        chatBox.appendChild(element);
+
+      }
+    );
 
     scrollToBottom();
   }
 
+
   function addMessage(sender, text) {
-    chatHistory.push({ sender, text });
-    sessionStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+
+    chatHistory.push({
+      sender,
+      text
+    });
+
+    sessionStorage.setItem(
+      "chatHistory",
+      JSON.stringify(chatHistory)
+    );
+
     renderChat();
   }
 
+
   function scrollToBottom() {
-    requestAnimationFrame(() => {
-      chatWrapper.scrollTop = chatWrapper.scrollHeight;
-    });
+
+    requestAnimationFrame(
+      () => {
+
+        chatWrapper.scrollTop =
+          chatWrapper.scrollHeight;
+
+      }
+    );
   }
 
+
   function createTypingIndicator() {
-    const element = document.createElement("article");
-    element.className = "message assistant";
 
-    const label = document.createElement("div");
-    label.className = "message-label";
-    label.innerHTML = "QueryLeaf";
+    const element =
+      document.createElement("article");
 
-    const content = document.createElement("div");
-    content.className = "message-content";
+    element.className =
+      "message assistant";
 
-    const typing = document.createElement("div");
-    typing.className = "typing";
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "message-label";
+
+    label.innerHTML =
+      "QueryLeaf";
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+    const typing =
+      document.createElement("div");
+
+    typing.className =
+      "typing";
+
     for (let i = 0; i < 3; i++) {
-      const dot = document.createElement("span");
+
+      const dot =
+        document.createElement("span");
+
       typing.appendChild(dot);
+
     }
 
     content.appendChild(typing);
+
     element.appendChild(label);
+
     element.appendChild(content);
+
     return element;
   }
 
-  chatForm.addEventListener("submit", async event => {
-    event.preventDefault();
-    const question = questionInput.value.trim();
-    if (!question) return;
-
-    if (question.toLowerCase().includes("flashcard") || question.toLowerCase().includes("deck")) {
-      questionInput.value = "";
-      resizeTextarea();
-      generateFlashcards();
-      return;
-    }
-
-    addMessage("user", question);
-    questionInput.value = "";
-    resizeTextarea();
-
-    const typing = createTypingIndicator();
-    chatBox.appendChild(typing);
-    scrollToBottom();
-
-    try {
-      const formData = new FormData();
-      formData.append("question", question);
-
-      const response = await fetch("/ask/", { method: "POST", body: formData });
-      if (!response.ok) throw new Error("Request failed");
-
-      const answer = await response.text();
-      typing.remove();
-      addMessage("assistant", answer);
-    } catch {
-      typing.remove();
-      addMessage("assistant", "The book could not answer that. Try again.");
-    }
-  });
-
-  questionInput.addEventListener("keydown", event => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      chatForm.requestSubmit();
-    }
-  });
-
-  questionInput.addEventListener("input", resizeTextarea);
-  function resizeTextarea() {
-    questionInput.style.height = "auto";
-    questionInput.style.height = Math.min(questionInput.scrollHeight, 150) + "px";
-  }
-
-  document.querySelectorAll(".suggestion:not(#prompt-gen-cards)").forEach(button => {
-    button.addEventListener("click", () => {
-      questionInput.value = button.dataset.question;
-      questionInput.focus();
-      resizeTextarea();
-    });
-  });
 
   /* ==================================================
-     UPLOAD & DOCUMENT MANAGEMENT
+     CHAT FORM
   ================================================== */
-  fileInput.addEventListener("change", () => {
-    if (!fileInput.files.length) return;
-    uploadFile(fileInput.files[0]);
-  });
 
-  async function uploadFile(file) {
-    uploadProgress.classList.add("visible");
-    uploadProgressBar.style.width = "0%";
-    uploadResponse.textContent = "";
-    uploadResponse.className = "";
+  chatForm.addEventListener(
+    "submit",
+    async event => {
 
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append("file", file);
+      event.preventDefault();
 
-    xhr.upload.addEventListener("progress", event => {
-      if (!event.lengthComputable) return;
-      uploadProgressBar.style.width = ((event.loaded / event.total) * 100) + "%";
-    });
+      const question =
+        questionInput.value.trim();
 
-    xhr.addEventListener("load", () => {
-      uploadProgressBar.style.width = "100%";
+      if (!question) return;
 
-      if (xhr.status >= 200 && xhr.status < 300) {
-        let result = {};
-        try { result = JSON.parse(xhr.responseText); } catch {}
+      if (
+        question
+          .toLowerCase()
+          .includes("flashcard") ||
+        question
+          .toLowerCase()
+          .includes("deck")
+      ) {
 
-        uploadResponse.textContent = result.message || "Book indexed.";
-        documentEmpty.style.display = "none";
-        documentActive.classList.add("visible");
-        documentName.textContent = file.name;
+        questionInput.value = "";
 
-        const extension = file.name.split(".").pop().toUpperCase();
-        documentMeta.textContent = extension + " / DOCUMENT";
+        resizeTextarea();
 
-        bookEmpty.style.display = "none";
-        book.classList.remove("hidden");
+        generateFlashcards();
 
-        const name = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
-        bookTitle.textContent = name.substring(0, 30);
-      } else {
-        uploadResponse.textContent = "Unable to index this book.";
-        uploadResponse.className = "error";
+        return;
       }
 
-      setTimeout(() => {
-        uploadProgress.classList.remove("visible");
-      }, 700);
-    });
+      addMessage(
+        "user",
+        question
+      );
 
-    xhr.addEventListener("error", () => {
-      uploadResponse.textContent = "Upload failed. Check the server.";
-      uploadResponse.className = "error";
-      uploadProgress.classList.remove("visible");
-    });
+      questionInput.value = "";
 
-    xhr.open("POST", "/upload/", true);
-    xhr.send(formData);
+      resizeTextarea();
+
+      const typing =
+        createTypingIndicator();
+
+      chatBox.appendChild(typing);
+
+      scrollToBottom();
+
+      try {
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "question",
+          question
+        );
+
+        const response =
+          await fetch(
+            "/ask/",
+            {
+              method: "POST",
+              body: formData
+            }
+          );
+
+        if (!response.ok)
+          throw new Error(
+            "Request failed"
+          );
+
+        const answer =
+          await response.text();
+
+        typing.remove();
+
+        addMessage(
+          "assistant",
+          answer
+        );
+
+      }
+
+      catch {
+
+        typing.remove();
+
+        addMessage(
+          "assistant",
+          "The book could not answer that. Try again."
+        );
+
+      }
+
+    }
+  );
+
+
+  questionInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        chatForm.requestSubmit();
+
+      }
+
+    }
+  );
+
+
+  questionInput.addEventListener(
+    "input",
+    resizeTextarea
+  );
+
+
+  function resizeTextarea() {
+
+    questionInput.style.height =
+      "auto";
+
+    questionInput.style.height =
+      Math.min(
+        questionInput.scrollHeight,
+        150
+      ) + "px";
+
   }
 
-  /* DRAG & DROP */
-  ["dragenter", "dragover"].forEach(eventName => {
-    uploadArea.addEventListener(eventName, event => {
-      event.preventDefault();
-      uploadArea.style.background = "white";
+
+  document
+    .querySelectorAll(
+      ".suggestion:not(#prompt-gen-cards)"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          questionInput.value =
+            button.dataset.question;
+
+          questionInput.focus();
+
+          resizeTextarea();
+
+        }
+      );
+
     });
-  });
 
-  ["dragleave", "drop"].forEach(eventName => {
-    uploadArea.addEventListener(eventName, event => {
-      event.preventDefault();
-      uploadArea.style.background = "";
-    });
-  });
 
-  uploadArea.addEventListener("drop", event => {
-    const files = event.dataTransfer.files;
-    if (!files.length) return;
-    uploadFile(files[0]);
-  });
+  /* ==================================================
+     UPLOAD
+  ================================================== */
 
-  /* CLEAR */
-  clearBtn.addEventListener("click", async () => {
-    try {
-      const response = await fetch("/clear/", { method: "POST" });
-      if (!response.ok) throw new Error();
+  fileInput.addEventListener(
+    "change",
+    () => {
 
-      chatHistory = [];
-      sessionStorage.removeItem("chatHistory");
+      if (!fileInput.files.length)
+        return;
 
-      documentEmpty.style.display = "block";
-      documentActive.classList.remove("visible");
-      book.classList.add("hidden");
-      bookEmpty.style.display = "block";
-      uploadResponse.textContent = "";
+      uploadFile(
+        fileInput.files[0]
+      );
 
-      renderChat();
-    } catch {
-      addMessage("assistant", "Unable to clear the current session.");
     }
-  });
+  );
 
-  /* INITIAL RUN */
+
+  async function uploadFile(file) {
+
+    uploadProgress.classList.add(
+      "visible"
+    );
+
+    uploadProgressBar.style.width =
+      "0%";
+
+    uploadResponse.textContent =
+      "";
+
+    uploadResponse.className =
+      "";
+
+    const xhr =
+      new XMLHttpRequest();
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "file",
+      file
+    );
+
+
+    xhr.upload.addEventListener(
+      "progress",
+      event => {
+
+        if (!event.lengthComputable)
+          return;
+
+        uploadProgressBar.style.width =
+          (
+            event.loaded /
+            event.total *
+            100
+          ) + "%";
+
+      }
+    );
+
+
+    xhr.addEventListener(
+      "load",
+      () => {
+
+        uploadProgressBar.style.width =
+          "100%";
+
+        if (
+          xhr.status >= 200 &&
+          xhr.status < 300
+        ) {
+
+          let result = {};
+
+          try {
+
+            result =
+              JSON.parse(
+                xhr.responseText
+              );
+
+          } catch {}
+
+
+          uploadResponse.textContent =
+            result.message ||
+            "Book indexed.";
+
+          documentEmpty.style.display =
+            "none";
+
+          documentActive.classList.add(
+            "visible"
+          );
+
+          documentName.textContent =
+            file.name;
+
+          const extension =
+            file.name
+              .split(".")
+              .pop()
+              .toUpperCase();
+
+          documentMeta.textContent =
+            extension +
+            " / DOCUMENT";
+
+
+          bookEmpty.style.display =
+            "none";
+
+          book.classList.remove(
+            "hidden"
+          );
+
+
+          const name =
+            file.name
+              .replace(/\.[^/.]+$/, "")
+              .replace(/[-_]/g, " ");
+
+          bookTitle.textContent =
+            name.substring(0, 30);
+
+        }
+
+        else {
+
+          uploadResponse.textContent =
+            "Unable to index this book.";
+
+          uploadResponse.className =
+            "error";
+
+        }
+
+
+        setTimeout(
+          () => {
+
+            uploadProgress.classList.remove(
+              "visible"
+            );
+
+          },
+          700
+        );
+
+      }
+    );
+
+
+    xhr.addEventListener(
+      "error",
+      () => {
+
+        uploadResponse.textContent =
+          "Upload failed. Check the server.";
+
+        uploadResponse.className =
+          "error";
+
+        uploadProgress.classList.remove(
+          "visible"
+        );
+
+      }
+    );
+
+
+    xhr.open(
+      "POST",
+      "/upload/",
+      true
+    );
+
+    xhr.send(formData);
+
+  }
+
+
+  /* ==================================================
+     DRAG & DROP
+  ================================================== */
+
+  ["dragenter", "dragover"]
+    .forEach(eventName => {
+
+      uploadArea.addEventListener(
+        eventName,
+        event => {
+
+          event.preventDefault();
+
+          uploadArea.style.background =
+            "white";
+
+        }
+      );
+
+    });
+
+
+  ["dragleave", "drop"]
+    .forEach(eventName => {
+
+      uploadArea.addEventListener(
+        eventName,
+        event => {
+
+          event.preventDefault();
+
+          uploadArea.style.background =
+            "";
+
+        }
+      );
+
+    });
+
+
+  uploadArea.addEventListener(
+    "drop",
+    event => {
+
+      const files =
+        event.dataTransfer.files;
+
+      if (!files.length)
+        return;
+
+      uploadFile(files[0]);
+
+    }
+  );
+
+
+  /* ==================================================
+     CLEAR
+  ================================================== */
+
+  clearBtn.addEventListener(
+    "click",
+    async () => {
+
+      try {
+
+        const response =
+          await fetch(
+            "/clear/",
+            {
+              method: "POST"
+            }
+          );
+
+        if (!response.ok)
+          throw new Error();
+
+
+        chatHistory = [];
+
+        sessionStorage.removeItem(
+          "chatHistory"
+        );
+
+
+        documentEmpty.style.display =
+          "block";
+
+        documentActive.classList.remove(
+          "visible"
+        );
+
+        book.classList.add(
+          "hidden"
+        );
+
+        bookEmpty.style.display =
+          "block";
+
+        uploadResponse.textContent =
+          "";
+
+        renderChat();
+
+      }
+
+      catch {
+
+        addMessage(
+          "assistant",
+          "Unable to clear the current session."
+        );
+
+      }
+
+    }
+  );
+
+
+  /* ==================================================
+     INITIAL RUN
+  ================================================== */
+
   renderChat();
+
   renderFlashcard();
+
 </script>
 
 </body>
