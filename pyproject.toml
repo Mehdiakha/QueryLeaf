@@ -12,6 +12,7 @@ dependencies = [
     "jinja2>=3.1.6",
     "langchain>=0.3.25",
     "langchain-community>=0.3.24",
+    "langchain-mistralai>=0.2.12",
     "langchain-openai>=0.3.17",
     "llama-index>=0.12.36",
     "mobi>=0.3.3",
